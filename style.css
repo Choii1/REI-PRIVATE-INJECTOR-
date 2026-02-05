@@ -1,0 +1,176 @@
+/* --- VARIABLES --- */
+:root {
+    --bg-color: #050505;
+    --card-bg: rgba(15, 15, 20, 0.7);
+    --primary: #7d2ae8;
+    --cyan: #00f3ff;
+    --gold: #ffd700;
+    --text: #ffffff;
+    --success: #00ff88;
+}
+
+/* --- RESET & BODY --- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+/* --- CLICK TO ENTER OVERLAY (NEW) --- */
+#enter-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: #000; z-index: 99999;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: opacity 0.8s ease;
+}
+
+.enter-content { text-align: center; }
+
+.enter-text {
+    font-family: 'JetBrains Mono', monospace; font-size: 1.5rem;
+    color: #fff; letter-spacing: 3px; font-weight: bold;
+    animation: pulse 2s infinite;
+}
+
+.enter-sub {
+    font-size: 0.8rem; color: #555; margin-top: 10px; letter-spacing: 2px;
+}
+
+/* --- REST OF CSS --- */
+.crt-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
+    background-size: 100% 4px; z-index: 9998; pointer-events: none; opacity: 0.3;
+}
+
+.grid-bg {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background-image: 
+        radial-gradient(circle at 15% 50%, rgba(125, 42, 232, 0.08), transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(0, 243, 255, 0.08), transparent 25%);
+    z-index: -2;
+}
+
+.cursor-glow {
+    position: fixed; width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(125, 42, 232, 0.1), transparent 70%);
+    transform: translate(-50%, -50%); pointer-events: none; z-index: -1;
+}
+
+.container { max-width: 1200px; margin: 0 auto; padding: 2rem; width: 100%; }
+
+/* HEADER & GLITCH TEXT */
+header { text-align: center; padding: 5rem 0 3rem; animation: fadeIn 1.5s ease; }
+.glitch-wrapper {
+    font-family: 'JetBrains Mono', monospace; font-size: 3.5rem; font-weight: 800;
+    color: #fff; position: relative; margin-bottom: 1rem;
+}
+@media (max-width: 600px) { .glitch-wrapper { font-size: 2rem; } }
+.subtitle { color: #888; font-size: 1.1rem; letter-spacing: 1px; margin-bottom: 2rem; }
+
+.status-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 16px; background: rgba(0, 255, 136, 0.08);
+    border: 1px solid var(--success); color: var(--success);
+    border-radius: 20px; font-family: 'JetBrains Mono'; font-size: 0.8rem; margin-bottom: 1.5rem;
+}
+.pulse-icon { font-size: 8px; animation: blink 1s infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+@keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+
+/* FREE KEY BOX */
+.free-key-box {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: linear-gradient(90deg, rgba(255, 215, 0, 0.1), rgba(0,0,0,0));
+    border-left: 3px solid var(--gold); padding: 12px 25px;
+    margin-bottom: 2.5rem; cursor: pointer; position: relative; overflow: hidden;
+    font-family: 'JetBrains Mono'; color: var(--gold); font-weight: bold; transition: 0.3s;
+}
+.free-key-box:hover { background: rgba(255, 215, 0, 0.15); padding-left: 30px; }
+
+/* BUTTONS */
+.header-buttons { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+.telegram-btn {
+    background: #229ED9; color: white; padding: 14px 30px; border-radius: 8px;
+    text-decoration: none; font-weight: 700; display: flex; align-items: center; gap: 10px;
+    transition: 0.3s; border: 1px solid rgba(255,255,255,0.1);
+}
+.telegram-btn:hover { background: #1c8ac0; transform: translateY(-2px); box-shadow: 0 10px 30px rgba(34, 158, 217, 0.3); }
+
+.download-btn {
+    background: rgba(255, 255, 255, 0.03); color: white; padding: 14px 30px;
+    border-radius: 8px; text-decoration: none; font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.15); display: flex; align-items: center; gap: 10px;
+    transition: 0.3s;
+}
+.download-btn:hover { border-color: var(--cyan); color: var(--cyan); background: rgba(0, 243, 255, 0.05); }
+
+/* CARDS */
+.pricing-section { margin-top: 3rem; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; padding-bottom: 4rem; }
+.card {
+    background: var(--card-bg); border-radius: 12px; padding: 2.5rem;
+    position: relative; border: 1px solid rgba(255,255,255,0.05);
+    transition: transform 0.3s, box-shadow 0.3s; overflow: hidden;
+}
+.card:hover { transform: translateY(-5px); }
+
+.rgb-border, .rgb-border-gold { position: relative; z-index: 1; border: none; }
+.rgb-border::before, .rgb-border-gold::before {
+    content: ""; position: absolute; z-index: -1; inset: -2px;
+    border-radius: 14px; background: linear-gradient(45deg, var(--primary), var(--cyan), var(--primary));
+    background-size: 200%; animation: animateGlow 3s linear infinite;
+}
+.rgb-border-gold::before { background: linear-gradient(45deg, var(--gold), #ff8c00, var(--gold)); }
+.rgb-border::after, .rgb-border-gold::after { content: ""; position: absolute; z-index: -1; inset: 2px; background: #0a0a0f; border-radius: 12px; }
+@keyframes animateGlow { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
+
+.badge {
+    position: absolute; top: 15px; right: 15px; font-size: 0.7rem;
+    padding: 5px 10px; border-radius: 4px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
+}
+.badge-pop { background: var(--cyan); color: #000; }
+.badge-life { background: var(--primary); color: #fff; }
+
+.price { font-size: 2.8rem; font-weight: 800; margin: 1rem 0; color: #fff; }
+.currency { font-size: 1.2rem; color: #666; vertical-align: top; }
+.duration { font-size: 0.9rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 2px; font-weight: 700; }
+.features { list-style: none; margin: 2rem 0; text-align: left; }
+.features li { margin-bottom: 15px; color: #bbb; font-size: 0.95rem; display: flex; gap: 10px; align-items: center; }
+.features i { color: var(--cyan); width: 20px; }
+.card.lifetime .features i { color: var(--primary); }
+
+.buy-btn {
+    display: block; width: 100%; padding: 16px; border-radius: 6px;
+    background: rgba(255,255,255,0.05); color: #fff; text-decoration: none;
+    font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+    transition: 0.3s; border: 1px solid rgba(255,255,255,0.1);
+}
+.buy-btn:hover { background: #fff; color: #000; border-color: #fff; }
+
+/* MODAL */
+.modal {
+    display: none; position: fixed; z-index: 100001; left: 0; top: 0;
+    width: 100%; height: 100%; background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(8px); align-items: center; justify-content: center;
+}
+.modal-content {
+    background: #111; border: 1px solid var(--gold); border-radius: 12px;
+    padding: 2.5rem; width: 90%; max-width: 450px; text-align: center;
+    position: relative; box-shadow: 0 0 50px rgba(255, 215, 0, 0.15);
+}
+.key-display-box { display: flex; gap: 10px; margin: 20px 0 10px; }
+#keyInput {
+    flex: 1; background: #000; border: 1px solid #333; color: var(--success);
+    padding: 12px; border-radius: 4px; text-align: center; font-family: 'JetBrains Mono';
+}
+#copyBtn { background: var(--gold); border: none; padding: 0 20px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+.close-modal { position: absolute; right: 20px; top: 15px; color: #555; font-size: 24px; cursor: pointer; }
+footer { text-align: center; color: #444; margin-top: auto; padding: 2rem; font-family: 'JetBrains Mono'; font-size: 0.8rem; }
